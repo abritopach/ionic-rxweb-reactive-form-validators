@@ -1,14 +1,110 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Ionic Blank
+      Ionic Rxweb Reactive Form Validators
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="userRegistrationFormGroup" novalidate (ngSubmit)="userRegistrationFormGroupSubmit()">
+        <ion-list>
+          <ion-item-divider color="primary">User Profile Info</ion-item-divider>
+          <br>
+          <ion-item-divider color="light">
+            <ion-label>
+              General
+            </ion-label>
+          </ion-item-divider>
+          <!-- FullName Field. -->
+          <ion-item [class.has-error]="userRegistrationFormGroup.get('fullName').hasError('required') && userRegistrationFormGroup.get('fullName').touched">
+              <ion-label position="floating">Name *</ion-label>
+              <ion-input type="text" formControlName="fullName"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="userRegistrationFormGroup.get('fullName').hasError('required') && userRegistrationFormGroup.get('fullName').touched">
+              <div class="error-message">
+                  This field is required.
+              </div>
+          </ion-item>
+          <br>
+          <ion-item-divider color="light">
+            <ion-label>
+              Address
+            </ion-label>
+          </ion-item-divider>
+
+          <div [formGroup]="userRegistrationFormGroup.controls['address']">
+            <!-- Area Name Field. -->
+            <ion-item [class.has-error]="getAreaName().hasError('required') && getAreaName().touched">
+              <ion-label position="floating">Area Name *</ion-label>
+              <ion-input type="text" formControlName="areaName"></ion-input>
+            </ion-item>
+            <ion-item lines="none" *ngIf="getAreaName().hasError('required') && getAreaName().touched">
+              <div class="error-message">
+                  This field is required.
+              </div>
+            </ion-item>
+            <!-- City Name Field. -->
+            <ion-item [class.has-error]="getCityName().hasError('required') && getCityName().touched">
+              <ion-label position="floating">City Name *</ion-label>
+              <ion-input type="text" formControlName="cityName"></ion-input>
+            </ion-item>
+            <ion-item lines="none" *ngIf="getCityName().hasError('required') && getCityName().touched">
+              <div class="error-message">
+                  This field is required.
+              </div>
+            </ion-item>
+             <!-- Country Name Field. -->
+             <ion-item [class.has-error]="getCountryName().hasError('required') && getCountryName().touched">
+              <ion-label position="floating">Country Name *</ion-label>
+              <ion-input type="text" formControlName="countryName"></ion-input>
+            </ion-item>
+            <ion-item lines="none" *ngIf="getCountryName().hasError('required') && getCountryName().touched">
+              <div class="error-message">
+                  This field is required.
+              </div>
+            </ion-item>
+          </div>
+
+          <br>
+          <ion-item-divider color="light">
+            <ion-label>
+              Hobbies
+            </ion-label>
+          </ion-item-divider>
+          <ion-list>
+            <ion-item [formGroup]="formGroup" *ngFor="let formGroup of userRegistrationFormGroup.controls['hobbies'].controls; let i = index;">
+              <ion-label position="floating">Hobby name *</ion-label>
+              <ion-input type="text" formControlName="name"></ion-input>
+              <ion-button slot="end" color="danger" fill="clear">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-row no-padding justify-content-center>
+            <ion-col col-auto text-right>
+              <ion-button [disabled]='!userRegistrationFormGroup.valid' type="submit" fill="clear" size="small" color="primary">
+              <ion-icon name='send' slot="start"></ion-icon>
+              Send
+              </ion-button>
+            </ion-col>
+        </ion-row>
+        <pre>form value: <br>{{userRegistrationFormGroup.getRawValue() | json}}</pre>
+        <pre>form valid: <br>{{userRegistrationFormGroup.valid | json}}</pre>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+      <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>
+      <ion-buttons slot="end">
+        <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fionic-nested-reactive-form&amp;title=&amp;aria-label=Star%20abritopach%2Fionic-nested-reactive-form%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star" style="width: 50px; height: 20px; border: none; padding-right: 5px"></iframe></div>
+        <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub" style="width: 67px; height: 20px; border: none;"></iframe></div>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
