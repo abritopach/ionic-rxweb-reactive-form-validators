@@ -28,6 +28,10 @@
                   This field is required.
               </div>
           </ion-item>
+          <ion-item>
+            <ion-label>Country Canada</ion-label>
+            <ion-checkbox slot="end" formControlName="isCountryCanada"></ion-checkbox>
+          </ion-item>
           <br>
           <ion-item-divider color="light">
             <ion-label>
@@ -73,12 +77,15 @@
             <ion-label>
               Hobbies
             </ion-label>
+            <ion-button slot="end" color="primary" fill="clear" (click)="addHobby()">
+              <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            </ion-button>
           </ion-item-divider>
           <ion-list>
             <ion-item [formGroup]="formGroup" *ngFor="let formGroup of userRegistrationFormGroup.controls['hobbies'].controls; let i = index;">
               <ion-label position="floating">Hobby name *</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
-              <ion-button slot="end" color="danger" fill="clear">
+              <ion-button slot="end" color="danger" fill="clear" (click)="removeHobby(i)">
                 <ion-icon slot="icon-only" name="close"></ion-icon>
               </ion-button>
             </ion-item>
@@ -87,8 +94,8 @@
         <ion-row no-padding justify-content-center>
             <ion-col col-auto text-right>
               <ion-button [disabled]='!userRegistrationFormGroup.valid' type="submit" fill="clear" size="small" color="primary">
-              <ion-icon name='send' slot="start"></ion-icon>
-              Send
+                <ion-icon name='send' slot="start"></ion-icon>
+                Send
               </ion-button>
             </ion-col>
         </ion-row>

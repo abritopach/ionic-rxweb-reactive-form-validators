@@ -34,6 +34,7 @@ export class HomePage implements OnInit {
   }
 
   userRegistrationFormGroupSubmit() {
+    console.log(this.userRegistrationFormGroup.getRawValue());
   }
 
   getAreaName() {
