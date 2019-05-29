@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   user = {
+    username: 'mike1997',
     fullName: 'Mike',
     address: {
       areaName: 'Wellsmere Rd',

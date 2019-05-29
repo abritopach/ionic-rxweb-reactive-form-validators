@@ -18,15 +18,36 @@
               General
             </ion-label>
           </ion-item-divider>
+           <!-- Username Field. -->
+           <ion-item [class.has-error]="userRegistrationFormGroup.get('username').hasError('required') && userRegistrationFormGroup.get('username').touched">
+              <ion-label position="floating">Username *</ion-label>
+              <ion-input type="text" formControlName="username"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="userRegistrationFormGroup.get('username').hasError('required') && userRegistrationFormGroup.get('username').touched">
+            <div class="error-message">
+                This field is required.
+            </div>
+          </ion-item>
+          <!-- Email Field. -->
+          <ion-item [class.has-error]="(userRegistrationFormGroup.get('email').hasError('required') || userRegistrationFormGroup.get('email').hasError('email')) && userRegistrationFormGroup.get('email').touched">
+              <ion-label position="floating">Email *</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="(userRegistrationFormGroup.get('email').hasError('required') || userRegistrationFormGroup.get('email').hasError('email')) && userRegistrationFormGroup.get('email').touched">
+            <div class="error-message">
+              <small *ngIf="userRegistrationFormGroup.get('email').hasError('required')">This field is required.<br/></small>
+              <small *ngIf="userRegistrationFormGroup.get('email').hasError('email')">{{ userRegistrationFormGroup.controls['email'].errors.email.message}}<br/></small>
+            </div>
+          </ion-item>
           <!-- FullName Field. -->
           <ion-item [class.has-error]="userRegistrationFormGroup.get('fullName').hasError('required') && userRegistrationFormGroup.get('fullName').touched">
               <ion-label position="floating">Name *</ion-label>
               <ion-input type="text" formControlName="fullName"></ion-input>
           </ion-item>
           <ion-item lines="none" *ngIf="userRegistrationFormGroup.get('fullName').hasError('required') && userRegistrationFormGroup.get('fullName').touched">
-              <div class="error-message">
-                  This field is required.
-              </div>
+            <div class="error-message">
+                This field is required.
+            </div>
           </ion-item>
           <ion-item>
             <ion-label>Country Canada</ion-label>

@@ -1,4 +1,4 @@
-import { required, prop, propObject, propArray } from '@rxweb/reactive-form-validators';
+import { required, prop, propObject, propArray, email } from '@rxweb/reactive-form-validators';
 
 import { Address } from './address.model';
 import { Hobby } from './hobby.model';
@@ -6,6 +6,12 @@ import { Hobby } from './hobby.model';
 export class User {
   private isCountryCanadaFlag = false;
 
+  @required()
+  username: string;
+
+  @email()
+  @required()
+  email: string;
 
   @required()
   fullName: string;
