@@ -2,6 +2,7 @@ import { required, prop, propObject, propArray, email } from '@rxweb/reactive-fo
 
 import { Address } from './address.model';
 import { Hobby } from './hobby.model';
+import { Interest } from './interest.model';
 
 export class User {
   private isCountryCanadaFlag = false;
@@ -35,4 +36,7 @@ export class User {
 
   @propArray(Hobby)
   hobbies: Array<Hobby>;
+
+  @propArray(Interest)
+  interests: Array<Interest>;
 }

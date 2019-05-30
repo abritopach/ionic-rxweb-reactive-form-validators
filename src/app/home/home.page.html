@@ -92,7 +92,6 @@
               </div>
             </ion-item>
           </div>
-
           <br>
           <ion-item-divider color="light">
             <ion-label>
@@ -111,6 +110,16 @@
               </ion-button>
             </ion-item>
           </ion-list>
+          <br>
+          <ion-item-divider color="light">
+            <ion-label>
+              Interests
+            </ion-label>
+          </ion-item-divider>
+          <ion-item [formGroup]="formGroup" *ngFor="let formGroup of userRegistrationFormGroup.controls['interests'].controls; let i = index;">
+            <ion-checkbox color="primary" formControlName="name"></ion-checkbox>
+            <ion-label> {{i}} </ion-label>
+          </ion-item>
         </ion-list>
         <ion-row no-padding justify-content-center>
             <ion-col col-auto text-right>
