@@ -19,9 +19,6 @@ export class UserService {
       }
     ],
     interests: [
-      {
-        name: 'Gaming'
-      }
     ]
   };
 

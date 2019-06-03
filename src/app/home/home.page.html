@@ -116,10 +116,17 @@
               Interests
             </ion-label>
           </ion-item-divider>
-          <ion-item [formGroup]="formGroup" *ngFor="let formGroup of userRegistrationFormGroup.controls['interests'].controls; let i = index;">
-            <ion-checkbox color="primary" formControlName="name"></ion-checkbox>
-            <ion-label> {{i}} </ion-label>
+          <ion-item *ngFor="let interest of interestsArray; let i = index;">
+            <ion-checkbox color="primary" (ionChange)="ionChangeInterest($event, interest, i)"></ion-checkbox>
+            <ion-label> {{interest}} </ion-label>
           </ion-item>
+          <ion-item lines="none" *ngIf="userRegistrationFormGroup.controls['interests']?.errors">
+              <div class="error-message">
+                  {{ userRegistrationFormGroup.controls['interests'].errors.choice.message}}
+              </div>
+            </ion-item>
+            <br>
+            <small class="form-text text-muted">You must select at least 2 option.</small>
         </ion-list>
         <ion-row no-padding justify-content-center>
             <ion-col col-auto text-right>
@@ -129,8 +136,8 @@
               </ion-button>
             </ion-col>
         </ion-row>
-        <pre>form value: <br>{{userRegistrationFormGroup.getRawValue() | json}}</pre>
-        <pre>form valid: <br>{{userRegistrationFormGroup.valid | json}}</pre>
+        <pre>form value: <br>{{ userRegistrationFormGroup.getRawValue() | json}}</pre>
+        <pre>form valid: <br>{{ userRegistrationFormGroup.valid | json }}</pre>
       </form>
     </ion-card-content>
   </ion-card>

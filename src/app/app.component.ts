@@ -24,7 +24,8 @@ export class AppComponent {
       this.splashScreen.hide();
 
       // If you want to apply global configuration then use below code.
-      ReactiveFormConfig.set({validationMessage: {email: 'Invalid email format'}});
+      ReactiveFormConfig.set({validationMessage: {email: 'Invalid email format',
+      choice: 'Please choose options according to minLength and maxLength'}});
     });
   }
 }

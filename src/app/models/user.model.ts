@@ -1,4 +1,4 @@
-import { required, prop, propObject, propArray, email } from '@rxweb/reactive-form-validators';
+import { required, prop, propObject, propArray, email, choice } from '@rxweb/reactive-form-validators';
 
 import { Address } from './address.model';
 import { Hobby } from './hobby.model';
@@ -37,6 +37,7 @@ export class User {
   @propArray(Hobby)
   hobbies: Array<Hobby>;
 
+  @choice({ minLength: 3 })
   @propArray(Interest)
   interests: Array<Interest>;
 }

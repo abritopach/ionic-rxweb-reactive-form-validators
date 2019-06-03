@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { Hobby } from '../models/hobby.model';
 
 import { UserService } from '../services/user.service';
+import { Interest } from '../models/interest.model';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,9 @@ export class HomePage implements OnInit {
 
   currentYear = new Date().getFullYear();
   userRegistrationFormGroup: FormGroup;
+
+  interestsArray: string[] = ['Movies', 'Read books', 'Gaming'];
+  interests: any[] = [];
 
   constructor(private formBuilder: RxFormBuilder, private userService: UserService) {}
 
@@ -47,6 +51,29 @@ export class HomePage implements OnInit {
 
   getCountryName() {
     return (this.userRegistrationFormGroup.get('address') as FormGroup).get('countryName');
+  }
+
+  getInterests(index) {
+    return ((this.userRegistrationFormGroup.get('interests') as FormArray).at(index) as FormGroup).get('name');
+  }
+
+  ionChangeInterest(event, interest, i) {
+    console.log('ionChangeInterest', event, interest, i);
+    const indexOf = this.interestsArray.indexOf(interest);
+    console.log('indexOf', indexOf);
+    const interests = this.userRegistrationFormGroup.controls.interests as FormArray;
+    if (event.detail.checked) {
+      this.interests.push({name: interest});
+      interests.push(this.formBuilder.formGroup(Interest));
+    } else {
+      this.interests.splice(indexOf, 1);
+      interests.removeAt(indexOf);
+    }
+    console.log('interests', this.interests);
+
+    interests.setValue(this.interests);
+    console.log('this.userRegistrationFormGroup.value', this.userRegistrationFormGroup.value);
+
   }
 
 }
