@@ -18,13 +18,17 @@ export class HomePage implements OnInit {
   currentYear = new Date().getFullYear();
   userRegistrationFormGroup: FormGroup;
 
-  interestsArray: string[] = ['Movies', 'Read books', 'Gaming'];
-  interests: any[] = [];
-
   constructor(private formBuilder: RxFormBuilder, private userService: UserService) {}
 
   ngOnInit() {
     this.userRegistrationFormGroup = this.formBuilder.formGroup(User, this.userService.getUser());
+    /*
+    console.log('ngOnInit form', this.userRegistrationFormGroup);
+    console.log('ngOnInit', this.userRegistrationFormGroup.value);
+    console.log(this.getInterests(0));
+    console.log((this.userRegistrationFormGroup.get('interests') as FormArray).hasError('choice'));
+    console.log((this.userRegistrationFormGroup.get('interests') as FormArray).hasError('required'));
+    */
   }
 
   addHobby() {
@@ -57,23 +61,20 @@ export class HomePage implements OnInit {
     return ((this.userRegistrationFormGroup.get('interests') as FormArray).at(index) as FormGroup).get('name');
   }
 
-  ionChangeInterest(event, interest, i) {
-    console.log('ionChangeInterest', event, interest, i);
-    const indexOf = this.interestsArray.indexOf(interest);
-    console.log('indexOf', indexOf);
-    const interests = this.userRegistrationFormGroup.controls.interests as FormArray;
-    if (event.detail.checked) {
-      this.interests.push({name: interest});
-      interests.push(this.formBuilder.formGroup(Interest));
-    } else {
-      this.interests.splice(indexOf, 1);
-      interests.removeAt(indexOf);
-    }
-    console.log('interests', this.interests);
-
-    interests.setValue(this.interests);
-    console.log('this.userRegistrationFormGroup.value', this.userRegistrationFormGroup.value);
-
-  }
+  getAllErrors(form: FormGroup | FormArray): { [key: string]: any; } | null {
+    let hasError = false;
+    const result = Object.keys(form.controls).reduce((acc, key) => {
+        const control = form.get(key);
+        const errors = (control instanceof FormGroup || control instanceof FormArray)
+            ? this.getAllErrors(control)
+            : control.errors;
+        if (errors) {
+            acc[key] = errors;
+            hasError = true;
+        }
+        return acc;
+    }, {} as { [key: string]: any; });
+    return hasError ? result : null;
+}
 
 }

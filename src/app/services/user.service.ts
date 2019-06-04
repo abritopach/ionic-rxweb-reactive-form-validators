@@ -19,6 +19,10 @@ export class UserService {
       }
     ],
     interests: [
+      {name: 'Movies', selected: true},
+      {name: 'Read books', selected: false},
+      {name: 'Gaming', selected: false},
+      {name: 'Travel', selected: false}
     ]
   };
 

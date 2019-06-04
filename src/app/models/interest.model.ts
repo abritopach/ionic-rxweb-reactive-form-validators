@@ -1,6 +1,9 @@
-import { unique } from '@rxweb/reactive-form-validators';
+import { unique, required } from '@rxweb/reactive-form-validators';
 
 export class Interest {
   @unique()
   name: string;
+
+  @required()
+  selected: boolean;
 }
